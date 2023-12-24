@@ -30,7 +30,7 @@ public class WebSecurityConfig {
                 http
                                 .authorizeHttpRequests((requests) -> requests
                                                 .requestMatchers("/", "/home", "/register", "/saveUser").permitAll()
-                                                .requestMatchers("/dashboard").hasAuthority("ADMIN")
+                                                .requestMatchers("/dashboard/**").hasAuthority("ADMIN")
                                                 .anyRequest().permitAll())
                                 .formLogin((form) -> form
                                                 .loginPage("/login")

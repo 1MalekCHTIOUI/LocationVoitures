@@ -31,4 +31,15 @@ public class OperationServiceImpl implements IOperationService {
         return operationRep.save(operation);
     }
 
+    @Override
+    public Optional<OperationLocation> findOperationByClientId(String id) {
+        return operationRep.findOperationById_client(id);
+    }
+
+    @Override
+    public Optional<OperationLocation> findOperationByVoitureId(String id) {
+        return operationRep.findOperationById_client(id);
+
+    }
+
 }

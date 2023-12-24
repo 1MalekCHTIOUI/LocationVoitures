@@ -18,8 +18,8 @@ import lombok.Setter;
 public class OperationLocation {
     @Id
     private String id_operation;
-    private Date date_debut;
-    private Date date_fin;
+    private String date_debut;
+    private String date_fin;
     private String type_garantie;
     private String frais_location;
     private String mode_paiement;
@@ -27,7 +27,7 @@ public class OperationLocation {
     private String id_client;
     private String id_voiture;
 
-    public OperationLocation(Date date_debut, Date date_fin, String type_garantie, String frais_location,
+    public OperationLocation(String date_debut, String date_fin, String type_garantie, String frais_location,
             String mode_paiement, String montant_garantie, String id_client, String id_voiture) {
         this.date_debut = date_debut;
         this.date_fin = date_fin;

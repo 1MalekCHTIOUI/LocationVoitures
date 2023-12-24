@@ -15,9 +15,16 @@ import lombok.Setter;
 @Setter
 public class Client {
     @Id
-    private String id_client; 
-    private String nom ;
+    private String id_client;
+    private String nom;
     private String prenom;
-    private String adresse; 
+    private String adresse;
     private String telephone;
+
+    public Client(String nom, String prenom, String adresse, String telephone) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.adresse = adresse;
+        this.telephone = telephone;
+    }
 }

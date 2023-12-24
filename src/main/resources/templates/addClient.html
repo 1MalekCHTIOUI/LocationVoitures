@@ -415,116 +415,46 @@
             <!-- Content Row -->
             <div class="mb-4">
               <form
-                th:action="@{/dashboard/operations/addOperation}"
-                th:object="${operationForm}"
+                th:action="@{/dashboard/clients/addClient}"
+                th:object="${clientForm}"
                 method="post"
               >
-                <div class="row">
-                  <div class="col mb-4">
-                    <div
-                      class="container-fluid p-3"
-                      style="border: 1px solid #5a5c69; border-radius: 8px"
-                    >
-                      <h5 style="color: #5a5c69">
-                        <strong>Informations:</strong>
-                      </h5>
-                      <div class="mb-3">
-                        <label class="form-label">Client: </label>
-                        <select
-                          class="custom-select"
-                          id="inputGroupSelect01"
-                          name="id_client"
-                          th:each="client : ${clients}"
-                        >
-                          <option selected value="">Choisie un client:</option>
-                          <option
-                            th:value="${client.id_client}"
-                            th:text="${client.nom} +' '+${client.prenom} "
-                          ></option>
-                        </select>
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label">Voiture: </label>
-                        <select
-                          class="custom-select"
-                          id="inputGroupSelect02"
-                          name="id_voiture"
-                        >
-                          <option selected value="">Choisie un voiture:</option>
-                          <option
-                            th:each="voiture : ${voitures}"
-                            th:value="${voiture.id_voiture}"
-                            th:text="${voiture.marque} +' '+${voiture.modele} "
-                          ></option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
+                <div class="mb-3">
+                  <label class="form-label">Nom: </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="nom"
+                    aria-describedby="nom"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Prenom: </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="prenom"
+                    aria-describedby="prenom"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Adresse: </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="adresse"
+                    aria-describedby="adresse"
+                  />
+                </div>
 
-                  <div class="col mb-4">
-                    <div
-                      class="container-fluid p-3"
-                      style="border: 1px solid #5a5c69; border-radius: 8px"
-                    >
-                      <h5 style="color: #5a5c69">
-                        <strong>Opération:</strong>
-                      </h5>
-                      <div class="mb-3">
-                        <label class="form-label">Date debut: </label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="date_debut"
-                          aria-describedby="date_debut"
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label">Date fin: </label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="date_fin"
-                          aria-describedby="date_fin"
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label">Type garantie: </label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="type_garantie"
-                          aria-describedby="type_garantie"
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label">Mode de paiement: </label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="mode_paiement"
-                          aria-describedby="mode_paiement"
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label">Montant de garantie: </label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          name="montant_garantie"
-                          aria-describedby="montant_garantie"
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label">Frais de location: </label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          name="frais_location"
-                          aria-describedby="frais_location"
-                        />
-                      </div>
-                    </div>
-                  </div>
+                <div class="mb-3">
+                  <label class="form-label">Telephone: </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="telephone"
+                    aria-describedby="telephone"
+                  />
                 </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>
