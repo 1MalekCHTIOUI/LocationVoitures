@@ -18,14 +18,14 @@ import lombok.Setter;
 @NoArgsConstructor
 public class OperationLocationForm {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private String date_debut;
+    private String dateDebut;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private String date_fin;
-    private String type_garantie;
-    private String mode_paiement;
-    private String montant_garantie;
-    private String frais_location;
-    private String id_client;
-    private String id_voiture;
+    private String dateFin;
+    private String typeGarantie;
+    private String fraisLocation;
+    private String modePaiement;
+    private String montantGarantie;
+    private String idClient;
+    private String idVoiture;
 
 }

@@ -442,6 +442,7 @@
               <table class="table">
                 <thead class="thead-light">
                   <tr>
+                    <th scope="col">Disp</th>
                     <th scope="col">Photo</th>
                     <th scope="col">Immat</th>
                     <th scope="col">Marque</th>
@@ -453,6 +454,11 @@
                 </thead>
                 <tbody>
                   <tr class="text" th:each="voiture,state : ${voitures}">
+                    <td>
+                      <div
+                        th:style="'margin: 0 auto;width: 10px; height: 10px; border-radius: 50%; background-color: ' + (${voiture.isAvailable} ? 'green' : 'rgb(240, 42, 42)')"
+                      ></div>
+                    </td>
                     <td class="w-25 h-25">
                       <div id="loader" class="loader">
                         <img
@@ -469,14 +475,22 @@
                     <td th:text="${voiture.dateMiseEnCirculation}"></td>
                     <td th:text="${voiture.prixLocation}"></td>
                     <td class="d-flex flex-row justify-content-evenly">
-                      <form
-                        th:action="@{|voitures/${voiture.id_voiture}/edit|}"
-                      >
+                      <form th:action="@{|voitures/${voiture.idVoiture}/edit|}">
                         <button
                           type="submit"
                           class="text-warning mx-2 border-0"
                         >
                           <i class="fas fa-cog fa-lg"></i>
+                        </button>
+                      </form>
+                      <form
+                        th:action="@{|operations/historiqueVoiture/${voiture.idVoiture}|}"
+                      >
+                        <button
+                          type="submit"
+                          class="text-warning mx-2 border-0"
+                        >
+                          <i class="fas fa-info-circle"></i>
                         </button>
                       </form>
 

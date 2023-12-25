@@ -17,25 +17,25 @@ import lombok.Setter;
 @Document
 public class OperationLocation {
     @Id
-    private String id_operation;
-    private String date_debut;
-    private String date_fin;
-    private String type_garantie;
-    private String frais_location;
-    private String mode_paiement;
-    private String montant_garantie;
-    private String id_client;
-    private String id_voiture;
+    private String idOperation;
+    private String dateDebut;
+    private String dateFin;
+    private String typeGarantie;
+    private String fraisLocation;
+    private String modePaiement;
+    private String montantGarantie;
+    private String idClient;
+    private String idVoiture;
 
-    public OperationLocation(String date_debut, String date_fin, String type_garantie, String frais_location,
-            String mode_paiement, String montant_garantie, String id_client, String id_voiture) {
-        this.date_debut = date_debut;
-        this.date_fin = date_fin;
-        this.type_garantie = type_garantie;
-        this.frais_location = frais_location;
-        this.mode_paiement = mode_paiement;
-        this.montant_garantie = montant_garantie;
-        this.id_client = id_client;
-        this.id_voiture = id_voiture;
+    public OperationLocation(String dateDebut, String dateFin, String typeGarantie, String fraisLocation,
+            String modePaiement, String montantGarantie, String idClient, String idVoiture) {
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.typeGarantie = typeGarantie;
+        this.fraisLocation = fraisLocation;
+        this.modePaiement = modePaiement;
+        this.montantGarantie = montantGarantie;
+        this.idClient = idClient;
+        this.idVoiture = idVoiture;
     }
 }

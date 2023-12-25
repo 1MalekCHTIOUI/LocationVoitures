@@ -15,5 +15,9 @@ public interface IOperationService {
 
     public Optional<OperationLocation> findOperationByVoitureId(String id);
 
+    public List<OperationLocation> findOperationsByClientId(String id);
+
+    public List<OperationLocation> findOperationsByVoitureId(String id);
+
     public OperationLocation saveOperationLocation(OperationLocation operation);
 }

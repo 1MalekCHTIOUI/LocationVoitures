@@ -7,7 +7,7 @@ import com.tekup.loc_voiture.dao.entities.Client;
 public interface IClientService {
     public List<Client> getClients();
 
-    public Optional<Client> getClient(String id);
+    public Optional<Client> getClientById(String id);
 
     public Client saveClient(Client client);
 

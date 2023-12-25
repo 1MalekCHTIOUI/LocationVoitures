@@ -12,11 +12,19 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VoitureForm {
-    private String id_voiture;
     private String immatVoiture;
     private String marque;
     private String modele;
     private MultipartFile photo;
     private String dateMiseEnCirculation;
     private String prixLocation;
+    private boolean isAvailable;
+
+    public boolean getIsAvailable() {
+        return this.isAvailable;
+    }
+
+    public void setIsAvailable(boolean isAvailable) {
+        this.isAvailable = isAvailable;
+    }
 }

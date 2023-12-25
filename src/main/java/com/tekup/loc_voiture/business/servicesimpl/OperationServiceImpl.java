@@ -33,12 +33,23 @@ public class OperationServiceImpl implements IOperationService {
 
     @Override
     public Optional<OperationLocation> findOperationByClientId(String id) {
-        return operationRep.findOperationById_client(id);
+        return operationRep.findOperationByIdClient(id);
+    }
+
+    @Override
+    public List<OperationLocation> findOperationsByClientId(String id) {
+        return operationRep.findOperationsByIdClient(id);
     }
 
     @Override
     public Optional<OperationLocation> findOperationByVoitureId(String id) {
-        return operationRep.findOperationById_client(id);
+        return operationRep.findOperationByIdVoiture(id);
+
+    }
+
+    @Override
+    public List<OperationLocation> findOperationsByVoitureId(String id) {
+        return operationRep.findOperationsByIdVoiture(id);
 
     }
 

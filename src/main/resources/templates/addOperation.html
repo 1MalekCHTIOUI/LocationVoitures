@@ -433,12 +433,12 @@
                         <select
                           class="custom-select"
                           id="inputGroupSelect01"
-                          name="id_client"
+                          name="idClient"
                           th:each="client : ${clients}"
                         >
                           <option selected value="">Choisie un client:</option>
                           <option
-                            th:value="${client.id_client}"
+                            th:value="${client.idClient}"
                             th:text="${client.nom} +' '+${client.prenom} "
                           ></option>
                         </select>
@@ -448,12 +448,12 @@
                         <select
                           class="custom-select"
                           id="inputGroupSelect02"
-                          name="id_voiture"
+                          name="idVoiture"
                         >
                           <option selected value="">Choisie un voiture:</option>
                           <option
                             th:each="voiture : ${voitures}"
-                            th:value="${voiture.id_voiture}"
+                            th:value="${voiture.idVoiture}"
                             th:text="${voiture.marque} +' '+${voiture.modele} "
                           ></option>
                         </select>
@@ -474,7 +474,7 @@
                         <input
                           type="text"
                           class="form-control"
-                          name="date_debut"
+                          name="dateDebut"
                           aria-describedby="date_debut"
                         />
                       </div>
@@ -483,7 +483,7 @@
                         <input
                           type="text"
                           class="form-control"
-                          name="date_fin"
+                          name="dateFin"
                           aria-describedby="date_fin"
                         />
                       </div>
@@ -492,7 +492,7 @@
                         <input
                           type="text"
                           class="form-control"
-                          name="type_garantie"
+                          name="typeGarantie"
                           aria-describedby="type_garantie"
                         />
                       </div>
@@ -501,7 +501,7 @@
                         <input
                           type="text"
                           class="form-control"
-                          name="mode_paiement"
+                          name="modePaiement"
                           aria-describedby="mode_paiement"
                         />
                       </div>
@@ -510,7 +510,7 @@
                         <input
                           type="number"
                           class="form-control"
-                          name="montant_garantie"
+                          name="montantGarantie"
                           aria-describedby="montant_garantie"
                         />
                       </div>
@@ -519,7 +519,7 @@
                         <input
                           type="number"
                           class="form-control"
-                          name="frais_location"
+                          name="fraisLocation"
                           aria-describedby="frais_location"
                         />
                       </div>

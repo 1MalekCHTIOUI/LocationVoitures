@@ -22,7 +22,7 @@ import com.tekup.loc_voiture.dao.entities.requests.VoitureForm;
 import com.tekup.loc_voiture.dao.repositories.VoitureRepository;
 
 @Service
-public class VoitureServiceImp implements IVoitureService {
+public class VoitureServiceImpl implements IVoitureService {
     @Value("${upload.path}")
     private String uploadPath;
 
@@ -60,7 +60,7 @@ public class VoitureServiceImp implements IVoitureService {
         vr.deleteById(id);
     }
 
-    public Voiture editProduct(String id, Voiture voiture, MultipartFile file) throws IOException {
+    public Voiture editVoiture(String id, Voiture voiture, MultipartFile file) throws IOException {
         Optional<Voiture> optionalVoiture = this.getVoitureById(id);
 
         if (optionalVoiture.isPresent()) {
@@ -69,6 +69,7 @@ public class VoitureServiceImp implements IVoitureService {
             existingVoiture.setMarque(voiture.getMarque());
             existingVoiture.setModele(voiture.getModele());
             existingVoiture.setPrixLocation(voiture.getPrixLocation());
+            existingVoiture.setIsAvailable(voiture.getIsAvailable());
 
             String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
             File uploadFile = new File(uploadPath, fileName);

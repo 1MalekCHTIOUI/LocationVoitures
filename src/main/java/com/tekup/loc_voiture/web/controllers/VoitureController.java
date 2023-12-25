@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.tekup.loc_voiture.business.servicesimpl.VoitureServiceImp;
+import com.tekup.loc_voiture.business.servicesimpl.VoitureServiceImpl;
 import com.tekup.loc_voiture.dao.entities.Voiture;
 import com.tekup.loc_voiture.dao.entities.requests.VoitureForm;
 
@@ -25,7 +25,7 @@ import java.lang.InterruptedException;
 public class VoitureController {
 
     @Autowired
-    private VoitureServiceImp voitureService;
+    private VoitureServiceImpl voitureService;
 
     @GetMapping({ "/", "/home" })
     // @RequestMapping({"/","/voitures"})
@@ -54,9 +54,9 @@ public class VoitureController {
     }
 
     @PostMapping("/dashboard/addVoiture")
-    public String addProduct(@ModelAttribute("voitureForm") VoitureForm voitureForm) {
+    public String addVoiture(@ModelAttribute("voitureForm") VoitureForm voitureForm) {
         Voiture v = new Voiture(voitureForm.getImmatVoiture(), voitureForm.getMarque(), voitureForm.getModele(),
-                voitureForm.getDateMiseEnCirculation(), voitureForm.getPrixLocation());
+                voitureForm.getDateMiseEnCirculation(), voitureForm.getPrixLocation(), true);
         try {
             voitureService.addVoiture(v, voitureForm.getPhoto());
             // Thread.sleep(2000);
@@ -91,13 +91,14 @@ public class VoitureController {
     }
 
     @GetMapping("/dashboard/voitures/{id}/edit")
-    public String showEditProduct(@PathVariable("id") String id, Model model) {
+    public String showEditVoiture(@PathVariable("id") String id, Model model) {
         Optional<Voiture> voitureEdit = voitureService.getVoitureById(id);
         if (voitureEdit.isPresent()) {
             model.addAttribute("voitureForm",
                     new Voiture(voitureEdit.get().getImmatVoiture(), voitureEdit.get().getMarque(),
                             voitureEdit.get().getModele(), voitureEdit.get().getPhoto(),
-                            voitureEdit.get().getDateMiseEnCirculation(), voitureEdit.get().getPrixLocation()));
+                            voitureEdit.get().getDateMiseEnCirculation(), voitureEdit.get().getPrixLocation(),
+                            voitureEdit.get().getIsAvailable()));
 
             model.addAttribute("id", id);
         } else {
@@ -107,13 +108,13 @@ public class VoitureController {
     }
 
     @PostMapping("/dashboard/voitures/{id}/edit")
-    public String editProduct(@PathVariable("id") String id, @ModelAttribute("voitureForm") VoitureForm voitureForm)
+    public String editVoiture(@PathVariable("id") String id, @ModelAttribute("voitureForm") VoitureForm voitureForm)
             throws IOException {
         Voiture voiture = new Voiture(voitureForm.getImmatVoiture(),
                 voitureForm.getMarque(),
                 voitureForm.getModele(),
-                voitureForm.getDateMiseEnCirculation(), voitureForm.getPrixLocation());
-        voitureService.editProduct(id, voiture, voitureForm.getPhoto());
+                voitureForm.getDateMiseEnCirculation(), voitureForm.getPrixLocation(), voitureForm.getIsAvailable());
+        voitureService.editVoiture(id, voiture, voitureForm.getPhoto());
 
         return "redirect:/dashboard/listeVoiture?refresh=true";
 

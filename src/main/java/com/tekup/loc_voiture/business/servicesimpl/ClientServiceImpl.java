@@ -22,7 +22,7 @@ public class ClientServiceImpl implements IClientService {
     }
 
     @Override
-    public Optional<Client> getClient(String id) {
+    public Optional<Client> getClientById(String id) {
         return clientRep.findById(id);
     }
 

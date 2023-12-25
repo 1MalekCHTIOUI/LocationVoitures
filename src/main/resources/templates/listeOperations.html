@@ -11,7 +11,6 @@
     <meta name="author" content="" />
 
     <title>SB Admin 2 - Dashboard</title>
-
     <!-- Custom fonts for this template-->
     <link
       href="/dashboard/vendor/fontawesome-free/css/all.min.css"
@@ -24,6 +23,30 @@
     />
 
     <link href="/dashboard/css/sb-admin-2.min.css" rel="stylesheet" />
+    <!-- <script>
+      (function () {
+        setTimeout(() => {
+          if (window.location.search.includes('refresh=true')) {
+            if (!window.refreshed) {
+              window.refreshed = true;
+              history.replaceState({}, '', window.location.pathname);
+              window.location.reload();
+            }
+          }
+        }, 5000);
+      })();
+      
+
+    </script> -->
+    <script th:if="${refresh}" type="text/javascript">
+      // Reload the page after a short delay (adjust as needed)
+      setTimeout(function () {
+        history.replaceState({}, '', window.location.pathname);
+
+        location.reload(true);
+        console.log('yes');
+      }, 1000);
+    </script>
   </head>
 
   <body id="page-top">
@@ -414,99 +437,158 @@
 
             <!-- Content Row -->
             <div
+              class="d-sm-flex align-items-center justify-content-between mb-4 w-100"
+            >
+              <form action="/dashboard/operations/listeOperations" method="get">
+                <div class="row">
+                  <div class="col-3 mb-3">
+                    <select
+                      class="custom-select"
+                      id="inputGroupSelect02"
+                      name="idClient"
+                    >
+                      <option selected value="">Filter by client:</option>
+                      <option
+                        th:each="client : ${clients}"
+                        th:value="${client.idClient}"
+                        th:text="${client.nom} +' '+${client.prenom} "
+                      ></option>
+                    </select>
+                  </div>
+                  <div class="col-3 mb-3">
+                    <select
+                      class="custom-select"
+                      id="inputGroupSelect02"
+                      name="idVoiture"
+                    >
+                      <option selected value="">Filter by voiture:</option>
+                      <option
+                        th:each="voiture : ${voitures}"
+                        th:value="${voiture.idVoiture}"
+                        th:text="${voiture.marque} +' '+${voiture.modele} "
+                      ></option>
+                    </select>
+                  </div>
+                  <div class="col-2">
+                    <button class="btn btn-success" type="submit">
+                      Filter
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div
               class="d-sm-flex align-items-center justify-content-between mb-4"
             >
-              <form
-                th:action="@{|/dashboard/voitures/${id}/edit|}"
-                th:object="${voitureForm}"
-                method="post"
-                enctype="multipart/form-data"
-              >
-                <div class="mb-3">
-                  <label class="form-label">Immatricule: </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="immatVoiture"
-                    th:field="*{immatVoiture}"
-                    aria-describedby="emailHelp"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Marque: </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="marque"
-                    th:field="*{marque}"
-                    aria-describedby="emailHelp"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Modele: </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="modele"
-                    th:field="*{modele}"
-                    aria-describedby="emailHelp"
-                  />
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label">Photo: </label>
-                  <input
-                    type="file"
-                    class="form-control"
-                    name="photo"
-                    th:field="*{photo}"
-                    aria-describedby="emailHelp"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label"
-                    >Date de mise en circulation:
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="dateMiseEnCirculation"
-                    th:field="*{dateMiseEnCirculation}"
-                    aria-describedby="emailHelp"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Prix de location: </label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    name="prixLocation"
-                    th:field="*{prixLocation}"
-                    aria-describedby="emailHelp"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Disponibilité: </label>
-                  <select
-                    class="custom-select"
-                    id="inputGroupSelect02"
-                    name="isAvailable"
-                    th:field="*{isAvailable}"
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Date debut</th>
+                    <th scope="col">Date fin</th>
+                    <th scope="col">Type garantie</th>
+                    <th scope="col">Frais location</th>
+                    <th scope="col">Mode paiement</th>
+                    <th scope="col">Montant garantie</th>
+                    <th scope="col">Client</th>
+                    <th scope="col">Voiture</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    class="text"
+                    th:each="operation,state : ${operationsDetails}"
                   >
-                    <option
-                      selected="${isAvailable}"
-                      th:value="${true}"
-                      th:text="Oui"
-                    ></option>
-                    <option
-                      selected="${isAvailable}"
-                      th:value="${false}"
-                      th:text="Non"
-                    ></option>
-                  </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
+                    <td th:text="${operation.dateDebut}"></td>
+                    <td th:text="${operation.dateFin}"></td>
+                    <td th:text="${operation.typeGarantie}"></td>
+
+                    <td th:text="${operation.fraisLocation}"></td>
+                    <td th:text="${operation.modePaiement}"></td>
+                    <td th:text="${operation.montantGarantie}"></td>
+                    <td th:text="${operation.client}"></td>
+                    <td th:text="${operation.voiture}"></td>
+                    <!-- <td class="d-flex flex-row justify-content-evenly">
+                      <form th:action="@{|voitures/${voiture.idVoiture}/edit|}">
+                        <button
+                          type="submit"
+                          class="text-warning mx-2 border-0"
+                        >
+                          <i class="fas fa-cog fa-lg"></i>
+                        </button>
+                      </form>
+                      <form
+                        th:action="@{|operations/historiqueVoiture/${voiture.idVoiture}|}"
+                      >
+                        <button
+                          type="submit"
+                          class="text-warning mx-2 border-0"
+                        >
+                          <i class="fas fa-info-circle"></i>
+                        </button>
+                      </form>
+
+                      <a
+                        class="dropdown-item text-danger"
+                        data-toggle="modal"
+                        th:data-target="'#confirmModal' + ${voiture.id_voiture}"
+                      >
+                        <i class="fas fa-trash fa-lg"></i>
+                      </a>
+
+                      <div
+                        class="modal fade"
+                        th:id="'confirmModal' + ${voiture.id_voiture}"
+                        tabindex="-1"
+                        role="dialog"
+                        aria-labelledby="confirmModal"
+                        aria-hidden="true"
+                      >
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5
+                                class="modal-title"
+                                id="confirmModallabel"
+                                th:text="${voiture.marque} +' '+ ${voiture.modele}"
+                              >
+                                Voiture
+                              </h5>
+                              <button
+                                class="close"
+                                type="button"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                              >
+                                <span aria-hidden="true">×</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">supprimer le véhicule?</div>
+                            <div class="modal-footer">
+                              <button
+                                class="btn btn-secondary"
+                                type="button"
+                                data-dismiss="modal"
+                              >
+                                Cancel
+                              </button>
+                              <form
+                                th:action="@{|voitures/${voiture.id_voiture}/delete|}"
+                                method="post"
+                              >
+                                <button type="submit" class="btn btn-danger">
+                                  Supprimer
+                                </button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td> -->
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
             <!-- Content Row -->
@@ -574,6 +656,8 @@
         </div>
       </div>
     </div> -->
+
+    <!-- CONFIRM MODAL -->
 
     <!-- Bootstrap core JavaScript-->
     <!-- <script
