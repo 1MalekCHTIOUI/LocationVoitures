@@ -48,12 +48,12 @@ public class VoitureController {
 
     }
 
-    @GetMapping("/dashboard/addVoiture")
+    @GetMapping("/dashboard/voitures/addVoiture")
     public String showAddVoitureForm() {
         return "addVoiture";
     }
 
-    @PostMapping("/dashboard/addVoiture")
+    @PostMapping("/dashboard/voitures/addVoiture")
     public String addVoiture(@ModelAttribute("voitureForm") VoitureForm voitureForm) {
         Voiture v = new Voiture(voitureForm.getImmatVoiture(), voitureForm.getMarque(), voitureForm.getModele(),
                 voitureForm.getDateMiseEnCirculation(), voitureForm.getPrixLocation(), true);
@@ -64,11 +64,10 @@ public class VoitureController {
             System.out.println(e.getMessage());
         }
 
-        return "redirect:/dashboard/listeVoiture?refresh=true";
-
+        return "redirect:/dashboard/voitures?refresh=true";
     }
 
-    @GetMapping("/dashboard/listeVoiture")
+    @GetMapping("/dashboard/voitures")
     public String showListeVoiture(Model model,
             @RequestParam(name = "refresh", defaultValue = "false") boolean refresh) {
         List<Voiture> voitures = voitureService.getVoitures();
@@ -77,7 +76,7 @@ public class VoitureController {
             model.addAttribute("voitures", voitures);
             Thread.sleep(1000);
 
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
@@ -87,7 +86,7 @@ public class VoitureController {
     @PostMapping("/dashboard/voitures/{id}/delete")
     public String deleteVoiture(Model model, @PathVariable("id") String id) {
         voitureService.deleteVoiture(id);
-        return "redirect:/dashboard/listeVoiture";
+        return "redirect:/dashboard/voitures";
     }
 
     @GetMapping("/dashboard/voitures/{id}/edit")
@@ -116,7 +115,7 @@ public class VoitureController {
                 voitureForm.getDateMiseEnCirculation(), voitureForm.getPrixLocation(), voitureForm.getIsAvailable());
         voitureService.editVoiture(id, voiture, voitureForm.getPhoto());
 
-        return "redirect:/dashboard/listeVoiture?refresh=true";
+        return "redirect:/dashboard/voitures?refresh=true";
 
     }
 

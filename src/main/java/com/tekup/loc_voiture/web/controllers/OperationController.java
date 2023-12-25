@@ -45,7 +45,7 @@ public class OperationController {
         return "addOperation";
     }
 
-    @GetMapping("/listeOperations")
+    @GetMapping
     public String getOperations(Model model,
             @RequestParam(required = false) String idClient,
             @RequestParam(required = false) String idVoiture) {

@@ -74,7 +74,6 @@
           </div>
         </li>
 
-
         <li class="nav-item">
           <a
             class="nav-link collapsed"
@@ -414,91 +413,58 @@
             </div>
 
             <!-- Content Row -->
-            <div
-            class="d-sm-flex align-items-center justify-content-between mb-4"
-          >
-          <form
-          th:action="@{/dashboard/voitures/addVoiture}"
-          th:object="${voitureForm}"
-          method="post"
-          enctype="multipart/form-data"
-        >
-          <div class="mb-3">
-            <label  class="form-label"
-              >Immatricule: </label
-            >
-            <input
-              type="text"
-              class="form-control"
-              name="immatVoiture"
-            
-              aria-describedby="emailHelp"
-            />
-          
-          </div>
-          <div class="mb-3">
-            <labelclass="form-label"
-              >Marque: </label
-            >
-            <input
-              type="text"
-              class="form-control"
-              name="marque"
-           
-              aria-describedby="emailHelp"
-            />
-          
-          </div>
-          <div class="mb-3">
-            <label class="form-label"
-              >Modele: </label
-            >
-            <input
-              type="text"
-              class="form-control"
-              name="modele"
-         
-              aria-describedby="emailHelp"
-            />
-          </div>
+            <div class="mb-4">
+              <form
+                th:action="@{|/dashboard/clients/${id}/edit|}"
+                th:object="${clientForm}"
+                method="post"
+              >
+                <div class="col-5">
+                  <div class="mb-3">
+                    <label class="form-label">Nom: </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="nom"
+                      th:field="*{nom}"
+                      aria-describedby="nom"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Prenom: </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="prenom"
+                      th:field="*{prenom}"
+                      aria-describedby="prenom"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Adresse: </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="adresse"
+                      th:field="*{adresse}"
+                      aria-describedby="adresse"
+                    />
+                  </div>
 
-  
-          <div class="mb-3">
-            <label class="form-label"
-              >Date de mise en circulation: </label
-            >
-            <input
-              type="text"
-              class="form-control"
-              name="dateMiseEnCirculation"
-
-              aria-describedby="emailHelp"
-            />
-          </div>
-          <div class="mb-3">
-            <label class="form-label"
-              >Prix de location: </label
-            >
-            <input
-              type="number"
-              class="form-control"
-              name="prixLocation"
-              aria-describedby="emailHelp"
-            />
-          </div>
-          <div class="mb-3">
-            <label class="form-label"
-              >Image de voiture: </label
-            >
-            <input type="file" name="photo" accept="image/*" class="form-control-file">
-          </div>
-        </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-     
-          </div>
-
-              
+                  <div class="mb-3">
+                    <label class="form-label">Téléphone: </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="telephone"
+                      th:field="*{telephone}"
+                      aria-describedby="telephone"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
 
             <!-- Content Row -->
 

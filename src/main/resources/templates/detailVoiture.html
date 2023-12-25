@@ -112,6 +112,20 @@
                 th:text="|${voiture.prixLocation} DT|"
               ></p>
             </div>
+            <div
+              class="d-flex flex-row g-0 align-items-center justify-content-center"
+            >
+              <p class="lh-1 mb-4" style="font-size: 20px; width: fit-content">
+                <strong
+                  th:text="'Actuellement ' + ${voiture.isAvailable? 'disponible': 'non disponible'}"
+                >
+                </strong>
+              </p>
+              <p
+                class="lh-1 mb-4"
+                th:style="'margin: 0 auto;width: 13px; height: 13px; border-radius: 50%; background-color: ' + (${voiture.isAvailable} ? 'green' : 'rgb(240, 42, 42)')"
+              ></p>
+            </div>
             <!-- <button class="btn btn-success">Louer !</button> -->
           </div>
           <div class="col-sm-8 col-md-6">

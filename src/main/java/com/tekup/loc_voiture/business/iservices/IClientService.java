@@ -11,4 +11,8 @@ public interface IClientService {
 
     public Client saveClient(Client client);
 
+    public Client editClient(String id, Client client);
+
+    public void deleteClient(String id);
+
 }
