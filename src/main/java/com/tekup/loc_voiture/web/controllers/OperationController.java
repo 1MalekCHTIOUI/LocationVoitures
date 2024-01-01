@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import com.tekup.loc_voiture.dao.entities.Client;
 import com.tekup.loc_voiture.dao.entities.OperationDetails;
 import com.tekup.loc_voiture.dao.entities.OperationLocation;
 import com.tekup.loc_voiture.dao.entities.Voiture;
+import com.tekup.loc_voiture.dao.entities.requests.ClientForm;
 import com.tekup.loc_voiture.dao.entities.requests.OperationLocationForm;
 
 @Controller
@@ -70,7 +72,8 @@ public class OperationController {
             Client c = clientService.getClientById(item.getIdClient()).get();
             operationsDetails.add(new OperationDetails(item.getIdOperation(), item.getDateDebut(), item.getDateFin(),
                     item.getTypeGarantie(), item.getFraisLocation(), item.getModePaiement(),
-                    item.getMontantGarantie(), c.getNom() + " " + c.getPrenom(), v.getMarque() + " " + v.getModele()));
+                    item.getMontantGarantie(), c.getNom() + " " + c.getPrenom(), v.getMarque() + " " + v.getModele(),
+                    item.getOperationFinished()));
         }
 
         try {
@@ -94,7 +97,8 @@ public class OperationController {
                 operationForm.getFraisLocation(),
                 operationForm.getMontantGarantie(),
                 operationForm.getIdClient(),
-                operationForm.getIdVoiture());
+                operationForm.getIdVoiture(),
+                operationForm.getOperationFinished());
         try {
             OperationLocation temp = opService.saveOperationLocation(operation);
         } catch (Exception e) {
@@ -102,6 +106,49 @@ public class OperationController {
 
         }
         return "redirect:/dashboard/operations/addOperation";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String getEditOperationForm(Model model, @PathVariable("id") String id) {
+        Optional<OperationLocation> operation = opService.getOperationLocation(id);
+        if (operation.isPresent()) {
+            OperationLocationForm operationForm = new OperationLocationForm(
+                    operation.get().getDateDebut(),
+                    operation.get().getDateFin(),
+                    operation.get().getTypeGarantie(),
+                    operation.get().getModePaiement(),
+                    operation.get().getFraisLocation(),
+                    operation.get().getMontantGarantie(),
+                    operation.get().getIdClient(),
+                    operation.get().getIdVoiture(), operation.get().getOperationFinished());
+            List<Client> cs = clientService.getClients();
+            List<Voiture> vs = voitureService.getVoitures();
+            model.addAttribute("operationForm", operationForm);
+            model.addAttribute("clients", cs);
+            model.addAttribute("voitures", vs);
+            model.addAttribute("id", id);
+
+            return "editOperation";
+        }
+        return "redirect:/dashboard/operations";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String editOperation(@PathVariable("id") String id,
+            @ModelAttribute("operationForm") OperationLocationForm opForm) {
+        OperationLocation operation = new OperationLocation(
+                opForm.getDateDebut(),
+                opForm.getDateFin(),
+                opForm.getTypeGarantie(),
+                opForm.getModePaiement(),
+                opForm.getFraisLocation(),
+                opForm.getMontantGarantie(),
+                opForm.getIdClient(),
+                opForm.getIdVoiture(),
+                opForm.getOperationFinished());
+
+        opService.editOperationLocation(id, operation);
+        return "redirect:/dashboard/operations";
     }
 
 }

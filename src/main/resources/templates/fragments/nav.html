@@ -1,0 +1,111 @@
+<ul
+  th:fragment="nav"
+  class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion h-100"
+  id="accordionSidebar"
+>
+  <a
+    class="sidebar-brand d-flex align-items-center justify-content-center"
+    th:href="@{/dashboard}"
+  >
+    <div class="sidebar-brand-icon rotate-n-15">
+      <i class="fas fa-car"></i>
+    </div>
+    <div class="sidebar-brand-text mx-3">Rentme</div>
+  </a>
+
+  <li class="nav-item">
+    <a
+      class="nav-link collapsed"
+      href="#"
+      data-toggle="collapse"
+      data-target="#voiture"
+      aria-expanded="true"
+      aria-controls="collapsePages"
+    >
+      <i class="fas fa-fw fa-folder"></i>
+      <span>Voitures</span>
+    </a>
+    <div
+      id="voiture"
+      class="collapse"
+      aria-labelledby="headingPages"
+      data-parent="#accordionSidebar"
+    >
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Gestion des voitures</h6>
+        <a class="collapse-item" th:href="@{/dashboard/voitures/addVoiture}"
+          >Ajouter voiture</a
+        >
+        <a class="collapse-item" th:href="@{/dashboard/voitures}"
+          >Liste voitures</a
+        >
+      </div>
+    </div>
+  </li>
+
+  <li class="nav-item">
+    <a
+      class="nav-link collapsed"
+      href="#"
+      data-toggle="collapse"
+      data-target="#op"
+      aria-expanded="true"
+      aria-controls="collapsePages"
+    >
+      <i class="fas fa-fw fa-folder"></i>
+      <span>Opérations</span>
+    </a>
+    <div
+      id="op"
+      class="collapse"
+      aria-labelledby="headingPages"
+      data-parent="#accordionSidebar"
+    >
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Gestion des Opérations:</h6>
+        <a class="collapse-item" th:href="@{/dashboard/operations/addOperation}"
+          >Ajouter Opération</a
+        >
+        <a class="collapse-item" th:href="@{/dashboard/operations}"
+          >Liste Opérations</a
+        >
+      </div>
+    </div>
+  </li>
+
+  <li class="nav-item">
+    <a
+      class="nav-link collapsed"
+      href="#"
+      data-toggle="collapse"
+      data-target="#client"
+      aria-expanded="true"
+      aria-controls="collapsePages"
+    >
+      <i class="fas fa-fw fa-folder"></i>
+      <span>Clients</span>
+    </a>
+    <div
+      id="client"
+      class="collapse"
+      aria-labelledby="headingPages"
+      data-parent="#accordionSidebar"
+    >
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Gestion des clients</h6>
+        <a class="collapse-item" th:href="@{/dashboard/clients/addClient}"
+          >Ajouter Clients</a
+        >
+        <a class="collapse-item" th:href="@{/dashboard/clients}"
+          >Liste Clients</a
+        >
+      </div>
+    </div>
+  </li>
+
+  <hr class="sidebar-divider d-none d-md-block" />
+
+  <div class="text-center d-none d-md-inline">
+    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+  </div>
+</ul>

@@ -28,6 +28,7 @@ public class OperationServiceImpl implements IOperationService {
 
     @Override
     public OperationLocation saveOperationLocation(OperationLocation operation) {
+        operation.setOperationFinished(false);
         return operationRep.save(operation);
     }
 
@@ -50,7 +51,25 @@ public class OperationServiceImpl implements IOperationService {
     @Override
     public List<OperationLocation> findOperationsByVoitureId(String id) {
         return operationRep.findOperationsByIdVoiture(id);
+    }
 
+    @Override
+    public OperationLocation editOperationLocation(String id, OperationLocation operation) {
+        Optional<OperationLocation> operationOptional = operationRep.findById(id);
+        if (operationOptional.isPresent()) {
+            OperationLocation operationLocation = operationOptional.get();
+            operationLocation.setDateDebut(operation.getDateDebut());
+            operationLocation.setDateFin(operation.getDateFin());
+            operationLocation.setFraisLocation(operation.getFraisLocation());
+            operationLocation.setIdVoiture(operation.getIdVoiture());
+            operationLocation.setIdClient(operation.getIdClient());
+            operationLocation.setModePaiement(operation.getModePaiement());
+            operationLocation.setTypeGarantie(operation.getTypeGarantie());
+            operationLocation.setMontantGarantie(operation.getMontantGarantie());
+            operationLocation.setOperationFinished(operation.getOperationFinished());
+            return operationRep.save(operationLocation);
+        }
+        return null;
     }
 
 }

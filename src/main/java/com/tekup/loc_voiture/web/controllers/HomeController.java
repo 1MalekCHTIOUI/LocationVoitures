@@ -3,16 +3,21 @@ package com.tekup.loc_voiture.web.controllers;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.tekup.loc_voiture.business.servicesimpl.ClientServiceImpl;
 import com.tekup.loc_voiture.business.servicesimpl.OperationServiceImpl;
 import com.tekup.loc_voiture.business.servicesimpl.VoitureServiceImpl;
+import com.tekup.loc_voiture.dao.entities.Client;
 import com.tekup.loc_voiture.dao.entities.OperationLocation;
 import com.tekup.loc_voiture.dao.entities.Voiture;
 
@@ -24,15 +29,20 @@ public class HomeController {
 
 	@Autowired
 	private VoitureServiceImpl voitureService;
+	@Autowired
+	private ClientServiceImpl clientService;
 
 	@GetMapping("/dashboard")
 	public String getAdminPage(Model model) {
 		int total = calculateTotalEarnings(opService.getOperationsLocation());
 		List<Voiture> rentedCars = getCurrentlyRentedCars(opService.getOperationsLocation());
+		HashMap<String, String> overdue = getOverdueCarsClients(opService.getOperationsLocation());
 		LocalDate currentDate = LocalDate.now();
 		Month currentMonth = currentDate.getMonth();
+
 		model.addAttribute("totalEarnings", total);
 		model.addAttribute("rentedCars", rentedCars);
+		model.addAttribute("overdueCars", overdue);
 		model.addAttribute("currentMonth", currentMonth);
 		model.addAttribute("currentDate", currentDate);
 		return "dashboard";
@@ -68,7 +78,24 @@ public class HomeController {
 				rentedCars.add(v);
 			}
 		}
-
 		return rentedCars;
+	}
+
+	public HashMap<String, String> getOverdueCarsClients(List<OperationLocation> opList) {
+		LocalDate currentDate = LocalDate.now();
+		int currentMonth = currentDate.getMonthValue();
+		HashMap<String, String> dataMap = new HashMap<>();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		for (OperationLocation op : opList) {
+			LocalDate endDate = LocalDate.parse(op.getDateFin(), formatter);
+
+			if (endDate.getMonthValue() >= currentMonth
+					&& op.getOperationFinished() == false) {
+				Voiture v = voitureService.getVoitureById(op.getIdVoiture()).orElse(null);
+				Client c = clientService.getClientById(op.getIdClient()).orElse(null);
+				dataMap.put(v.getModele() + " " + v.getMarque(), c.getNom() + " " + c.getPrenom());
+			}
+		}
+		return dataMap;
 	}
 }

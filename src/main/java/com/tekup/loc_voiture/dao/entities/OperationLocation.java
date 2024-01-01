@@ -26,9 +26,10 @@ public class OperationLocation {
     private String montantGarantie;
     private String idClient;
     private String idVoiture;
+    private boolean operationFinished;
 
     public OperationLocation(String dateDebut, String dateFin, String typeGarantie, String fraisLocation,
-            String modePaiement, String montantGarantie, String idClient, String idVoiture) {
+            String modePaiement, String montantGarantie, String idClient, String idVoiture, boolean operationFinished) {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.typeGarantie = typeGarantie;
@@ -37,5 +38,13 @@ public class OperationLocation {
         this.montantGarantie = montantGarantie;
         this.idClient = idClient;
         this.idVoiture = idVoiture;
+    }
+
+    public boolean getOperationFinished() {
+        return this.operationFinished;
+    }
+
+    public void setOperationFinished(boolean operationFinished) {
+        this.operationFinished = operationFinished;
     }
 }

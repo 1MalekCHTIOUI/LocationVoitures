@@ -20,4 +20,6 @@ public interface IOperationService {
     public List<OperationLocation> findOperationsByVoitureId(String id);
 
     public OperationLocation saveOperationLocation(OperationLocation operation);
+
+    public OperationLocation editOperationLocation(String id, OperationLocation operation);
 }

@@ -19,5 +19,6 @@ public class OperationDetails {
     private String montantGarantie;
     private String client;
     private String voiture;
+    private boolean operationFinished;
 
 }

@@ -60,7 +60,7 @@
             <!-- Content Row -->
             <div class="mb-4">
               <form
-                th:action="@{/dashboard/operations/addOperation}"
+                th:action="@{|/dashboard/operations/${id}/edit|}"
                 th:object="${operationForm}"
                 method="post"
               >
@@ -76,15 +76,18 @@
                       <div class="mb-3">
                         <label class="form-label">Client: </label>
                         <select
-                          class="custom-select"
-                          id="inputGroupSelect01"
+                          class="form-control"
+                          id="idClient"
                           name="idClient"
-                          th:each="client : ${clients}"
                         >
-                          <option selected value="">Choisie un client:</option>
+                          <option value="" th:if="${operationForm == null}">
+                            Choisie un client
+                          </option>
                           <option
+                            th:each="client : ${clients}"
                             th:value="${client.idClient}"
-                            th:text="${client.nom} +' '+${client.prenom} "
+                            th:text="${client.nom}"
+                            th:selected="${client.idClient == operationForm.idClient}"
                           ></option>
                         </select>
                       </div>
@@ -92,14 +95,17 @@
                         <label class="form-label">Voiture: </label>
                         <select
                           class="custom-select"
-                          id="inputGroupSelect02"
+                          id="idVoiture"
                           name="idVoiture"
                         >
-                          <option selected value="">Choisie un voiture:</option>
+                          <option th:if="${operationForm == null}" value="">
+                            Choisie un voiture:
+                          </option>
                           <option
                             th:each="voiture : ${voitures}"
                             th:value="${voiture.idVoiture}"
-                            th:text="${voiture.marque} +' '+${voiture.modele} "
+                            th:text="${voiture.marque} +' '+${voiture.modele}"
+                            th:selected="${voiture.idVoiture == operationForm.idVoiture}"
                           ></option>
                         </select>
                       </div>
@@ -121,6 +127,7 @@
                           class="form-control"
                           name="dateDebut"
                           aria-describedby="date_debut"
+                          th:field="*{dateDebut}"
                         />
                       </div>
                       <div class="mb-3">
@@ -130,6 +137,7 @@
                           class="form-control"
                           name="dateFin"
                           aria-describedby="date_fin"
+                          th:field="*{dateFin}"
                         />
                       </div>
                       <div class="mb-3">
@@ -139,6 +147,7 @@
                           class="form-control"
                           name="typeGarantie"
                           aria-describedby="type_garantie"
+                          th:field="*{typeGarantie}"
                         />
                       </div>
                       <div class="mb-3">
@@ -148,6 +157,7 @@
                           class="form-control"
                           name="modePaiement"
                           aria-describedby="mode_paiement"
+                          th:field="*{modePaiement}"
                         />
                       </div>
                       <div class="mb-3">
@@ -157,6 +167,7 @@
                           class="form-control"
                           name="montantGarantie"
                           aria-describedby="montant_garantie"
+                          th:field="*{montantGarantie}"
                         />
                       </div>
                       <div class="mb-3">
@@ -166,7 +177,28 @@
                           class="form-control"
                           name="fraisLocation"
                           aria-describedby="frais_location"
+                          th:field="*{fraisLocation}"
                         />
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Opération finis: </label>
+                        <select
+                          class="custom-select"
+                          id="inputGroupSelect02"
+                          name="operationFinished"
+                          th:field="*{operationFinished}"
+                        >
+                          <option
+                            selected="${operationFinished}"
+                            th:value="${true}"
+                            th:text="Oui"
+                          ></option>
+                          <option
+                            selected="${operationFinished}"
+                            th:value="${false}"
+                            th:text="Non"
+                          ></option>
+                        </select>
                       </div>
                     </div>
                   </div>

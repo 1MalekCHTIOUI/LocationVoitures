@@ -27,5 +27,13 @@ public class OperationLocationForm {
     private String montantGarantie;
     private String idClient;
     private String idVoiture;
+    private boolean operationFinished;
 
+    public boolean getOperationFinished() {
+        return this.operationFinished;
+    }
+
+    public void setOperationFinished(boolean operationFinished) {
+        this.operationFinished = operationFinished;
+    }
 }
