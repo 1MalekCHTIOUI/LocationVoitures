@@ -2,23 +2,16 @@ package com.tekup.loc_voiture.business.servicesimpl;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tekup.loc_voiture.business.iservices.IVoitureService;
 import com.tekup.loc_voiture.dao.entities.Voiture;
-import com.tekup.loc_voiture.dao.entities.requests.VoitureForm;
 import com.tekup.loc_voiture.dao.repositories.VoitureRepository;
 
 @Service
@@ -70,12 +63,14 @@ public class VoitureServiceImpl implements IVoitureService {
             existingVoiture.setModele(voiture.getModele());
             existingVoiture.setPrixLocation(voiture.getPrixLocation());
             existingVoiture.setIsAvailable(voiture.getIsAvailable());
-
-            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-            File uploadFile = new File(uploadPath, fileName);
-            file.transferTo(uploadFile);
-            existingVoiture.setPhoto(fileName);
-            System.out.println(voiture);
+            if (!file.getOriginalFilename().isEmpty()
+                    && !existingVoiture.getPhoto().equals(file.getOriginalFilename())) {
+                String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+                File uploadFile = new File(uploadPath, fileName);
+                file.transferTo(uploadFile);
+                existingVoiture.setPhoto(fileName);
+                System.out.println(voiture.getMarque());
+            }
             return vr.save(existingVoiture);
         } else {
             throw new IllegalArgumentException("Voiture not found with id: " + id);

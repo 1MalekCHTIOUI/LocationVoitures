@@ -1,11 +1,6 @@
 package com.tekup.loc_voiture.dao.entities.requests;
 
-import java.util.Date;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
-import com.tekup.loc_voiture.dao.entities.Client;
-import com.tekup.loc_voiture.dao.entities.Voiture;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

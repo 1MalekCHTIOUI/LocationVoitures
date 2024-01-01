@@ -12,13 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tekup.loc_voiture.business.servicesimpl.ClientServiceImpl;
 import com.tekup.loc_voiture.dao.entities.Client;
-import com.tekup.loc_voiture.dao.entities.Voiture;
 import com.tekup.loc_voiture.dao.entities.requests.ClientForm;
-import com.tekup.loc_voiture.dao.entities.requests.VoitureForm;
 
 @Controller
 @RequestMapping("/dashboard/clients")
@@ -63,6 +60,7 @@ public class ClientController {
                     new Client(clientEdit.get().getNom(), clientEdit.get().getPrenom(), clientEdit.get().getAdresse(),
                             clientEdit.get().getTelephone()));
             model.addAttribute("id", id);
+            model.addAttribute("c", clientEdit.get().getNom() + " " + clientEdit.get().getPrenom());
         }
         return "editClient";
     }

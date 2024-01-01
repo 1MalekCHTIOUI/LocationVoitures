@@ -18,7 +18,6 @@ import com.tekup.loc_voiture.dao.entities.requests.VoitureForm;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.lang.InterruptedException;
 
 @Controller
 @RequestMapping
@@ -100,6 +99,7 @@ public class VoitureController {
                             voitureEdit.get().getIsAvailable()));
 
             model.addAttribute("id", id);
+            model.addAttribute("v", voitureEdit.get().getMarque() + " " + voitureEdit.get().getModele());
         } else {
             System.out.println("nope");
         }

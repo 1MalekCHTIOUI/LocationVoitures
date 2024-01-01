@@ -10,7 +10,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Liste des voitures</title>
     <!-- Custom fonts for this template-->
     <link
       href="/dashboard/vendor/fontawesome-free/css/all.min.css"
@@ -23,21 +23,6 @@
     />
 
     <link href="/dashboard/css/sb-admin-2.min.css" rel="stylesheet" />
-    <!-- <script>
-      (function () {
-        setTimeout(() => {
-          if (window.location.search.includes('refresh=true')) {
-            if (!window.refreshed) {
-              window.refreshed = true;
-              history.replaceState({}, '', window.location.pathname);
-              window.location.reload();
-            }
-          }
-        }, 5000);
-      })();
-      
-
-    </script> -->
     <script th:if="${refresh}" type="text/javascript">
       // Reload the page after a short delay (adjust as needed)
       setTimeout(function () {
@@ -118,7 +103,7 @@
                     <td th:text="${voiture.modele}"></td>
 
                     <td th:text="${voiture.dateMiseEnCirculation}"></td>
-                    <td th:text="${voiture.prixLocation}"></td>
+                    <td th:text="${voiture.prixLocation} + ' '+DT"></td>
                     <td class="d-flex flex-row justify-content-evenly">
                       <form th:action="@{|voitures/${voiture.idVoiture}/edit|}">
                         <button

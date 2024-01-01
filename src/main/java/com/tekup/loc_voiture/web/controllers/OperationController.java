@@ -22,7 +22,6 @@ import com.tekup.loc_voiture.dao.entities.Client;
 import com.tekup.loc_voiture.dao.entities.OperationDetails;
 import com.tekup.loc_voiture.dao.entities.OperationLocation;
 import com.tekup.loc_voiture.dao.entities.Voiture;
-import com.tekup.loc_voiture.dao.entities.requests.ClientForm;
 import com.tekup.loc_voiture.dao.entities.requests.OperationLocationForm;
 
 @Controller
@@ -100,7 +99,7 @@ public class OperationController {
                 operationForm.getIdVoiture(),
                 operationForm.getOperationFinished());
         try {
-            OperationLocation temp = opService.saveOperationLocation(operation);
+            opService.saveOperationLocation(operation);
         } catch (Exception e) {
             System.out.println(e.getMessage());
 
