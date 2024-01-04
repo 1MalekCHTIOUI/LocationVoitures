@@ -34,26 +34,8 @@
   </head>
   <body id="page-top" style="overflow: hidden">
     <!-- Navigation-->
-    <nav
-      class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm"
-      id="mainNav"
-    >
-      <div class="container px-5">
-        <a class="navbar-brand fw-bold" href="/">Rentals</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarResponsive"
-          aria-controls="navbarResponsive"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          Menu
-          <i class="bi-list"></i>
-        </button>
-      </div>
-    </nav>
+    <div th:insert="~{/fragments/navClient :: navClient}"></div>
+
     <!-- Basic features section-->
     <section
       class="d-flex flex-column justify-content-center"
@@ -110,7 +92,7 @@
     <footer class="bg-black text-center py-5">
       <div class="container px-5">
         <div class="text-white-50 small">
-          <div class="mb-2">&copy; Your Website 2023. All Rights Reserved.</div>
+          <div class="mb-2">&copy; All Rights Reserved.</div>
           <a href="#!">Privacy</a>
           <span class="mx-1">&middot;</span>
           <a href="#!">Terms</a>

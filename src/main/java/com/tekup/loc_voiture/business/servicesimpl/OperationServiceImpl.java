@@ -68,8 +68,18 @@ public class OperationServiceImpl implements IOperationService {
             operationLocation.setMontantGarantie(operation.getMontantGarantie());
             operationLocation.setOperationFinished(operation.getOperationFinished());
             return operationRep.save(operationLocation);
+        } else {
+            throw new RuntimeException("Operation not found with id : " + id);
         }
-        return null;
+    }
+
+    public void deleteOperationLocation(String id) {
+        Optional<OperationLocation> operationOptional = operationRep.findById(id);
+        if (operationOptional.isPresent()) {
+            operationRep.deleteById(id);
+        } else {
+            throw new RuntimeException("Operation not found with id : " + id);
+        }
     }
 
 }

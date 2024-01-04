@@ -8,7 +8,7 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Location des voitures</title>
+    <title>Liste des voitures</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
     <link
@@ -37,81 +37,7 @@
     <div th:insert="~{/fragments/navClient :: navClient}"></div>
 
     <!-- Mashead header-->
-    <header class="masthead">
-      <div class="container px-5">
-        <div class="row gx-5 align-items-center">
-          <div class="col-lg-6">
-            <!-- Mashead text and app badges-->
-            <div class="mb-5 mb-lg-0 text-center text-lg-start">
-              <h1 class="display-1 lh-1 m-5">
-                Solutions plus simples de location
-              </h1>
-              <!-- <p class="lead fw-normal text-muted mb-5">
-                Launch your mobile app landing page faster with this free, open
-                source theme from Start Bootstrap!
-              </p> -->
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <!-- Masthead device mockup feature-->
-            <div class="masthead-device-mockup">
-              <svg
-                class="circle"
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <defs>
-                  <linearGradient
-                    id="circleGradient"
-                    gradientTransform="rotate(45)"
-                  >
-                    <stop class="gradient-start-color" offset="0%"></stop>
-                    <stop class="gradient-end-color" offset="100%"></stop>
-                  </linearGradient>
-                </defs>
-                <circle cx="50" cy="50" r="50"></circle></svg
-              ><svg
-                class="shape-1 d-none d-sm-block"
-                viewBox="0 0 240.83 240.83"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  x="-32.54"
-                  y="78.39"
-                  width="305.92"
-                  height="84.05"
-                  rx="42.03"
-                  transform="translate(120.42 -49.88) rotate(45)"
-                ></rect>
-                <rect
-                  x="-32.54"
-                  y="78.39"
-                  width="305.92"
-                  height="84.05"
-                  rx="42.03"
-                  transform="translate(-49.88 120.42) rotate(-45)"
-                ></rect></svg
-              ><svg
-                class="shape-2 d-none d-sm-block"
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="50" cy="50" r="50"></circle>
-              </svg>
-              <div class="device-wrapper" style="z-index: 5">
-                <img
-                  th:src="@{/assets/images/car.png}"
-                  alt=""
-                  srcset=""
-                  width="300"
-                  height="300"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
+
     <!-- Quote/testimonial aside-->
     <!-- <aside class="text-center bg-gradient-primary-to-secondary">
       <div class="container px-5">
@@ -121,7 +47,6 @@
               "An intuitive solution to a common problem that we all face,
               wrapped up in a single app!"
             </div>
-            <img src="assets/img/tnw-logo.svg" alt="..." style="height: 3rem" />
           </div>
         </div>
       </div>
@@ -130,12 +55,68 @@
     <!-- ------------------------------------------------------------------------------------------ -->
     <!-- ------------------------------------------------------------------------------------------ -->
     <!-- ------------------------------------------------------------------------------------------ -->
+
     <section class="bg-light d-flex align-items-center">
       <div class="container px-5">
         <div class="row gx-5 justify-content-center">
-          <div class="col-lg text-center">
-            <h2 class="display-4 lh-1 mb-4 text-center">Nos Voitures</h2>
+          <div class="d-flex align-items-center justify-content-start">
+            <!-- filter -->
+            <div class="mt-4  w-100">
+              <form th:action="@{/voitures}" method="get">
+                <div
+                  class="d-flex flex-row align-items-center justify-content-between"
+                >
+                  <div>
+                    <i class="bi bi-filter me-1"></i>
+                    <select
+                      class="custom-select"
+                      id="inputGroupSelect038"
+                      name="marque"
+                    >
+                      <option selected value="">marque:</option>
+                      <option
+                        th:each="marque : ${voituresNoOcc}"
+                        th:value="${marque}"
+                        th:text="${marque} "
+                      ></option>
+                    </select>
+                  </div>
 
+                  <div
+                    class="d-flex flex-row align-items-center justify-content-between"
+                  >
+                    <div class="form-group col-md-4">
+                      <label for="minPrice">Prix min:</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="minPrice"
+                        name="minPrice"
+                        placeholder="Entrer prix minimum"
+                      />
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="maxPrice">Prix max:</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="maxPrice"
+                        name="maxPrice"
+                        placeholder="Entrer prix maximum"
+                      />
+                    </div>
+                    <div class="form-group align-self-end">
+                      <button type="submit" class="btn btn-success">
+                        Apply Filter
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-lg text-center">
+            <!-- <h2 class="display-4 lh-1 mb-4 text-center">Nos Voitures</h2> -->
             <div
               class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center align-items-center"
             >
@@ -176,8 +157,8 @@
                   </a>
                 </div>
               </div>
+              <!-- Add more cards as needed -->
             </div>
-            <a href="/voitures" class="btn btn-success">Plus</a>
           </div>
         </div>
       </div>

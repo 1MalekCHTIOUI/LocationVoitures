@@ -92,13 +92,15 @@ public class OperationController {
                 operationForm.getDateDebut(),
                 operationForm.getDateFin(),
                 operationForm.getTypeGarantie(),
-                operationForm.getModePaiement(),
                 operationForm.getFraisLocation(),
+                operationForm.getModePaiement(),
                 operationForm.getMontantGarantie(),
                 operationForm.getIdClient(),
                 operationForm.getIdVoiture(),
                 operationForm.getOperationFinished());
         try {
+            Voiture v = voitureService.getVoitureById(operation.getIdVoiture()).get();
+            operation.setFraisLocation(v.getPrixLocation());
             opService.saveOperationLocation(operation);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -115,8 +117,8 @@ public class OperationController {
                     operation.get().getDateDebut(),
                     operation.get().getDateFin(),
                     operation.get().getTypeGarantie(),
-                    operation.get().getModePaiement(),
                     operation.get().getFraisLocation(),
+                    operation.get().getModePaiement(),
                     operation.get().getMontantGarantie(),
                     operation.get().getIdClient(),
                     operation.get().getIdVoiture(), operation.get().getOperationFinished());
@@ -139,14 +141,19 @@ public class OperationController {
                 opForm.getDateDebut(),
                 opForm.getDateFin(),
                 opForm.getTypeGarantie(),
-                opForm.getModePaiement(),
                 opForm.getFraisLocation(),
+                opForm.getModePaiement(),
                 opForm.getMontantGarantie(),
                 opForm.getIdClient(),
                 opForm.getIdVoiture(),
                 opForm.getOperationFinished());
-
         opService.editOperationLocation(id, operation);
+        return "redirect:/dashboard/operations";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String deleteOperation(@PathVariable("id") String id) {
+        opService.deleteOperationLocation(id);
         return "redirect:/dashboard/operations";
     }
 

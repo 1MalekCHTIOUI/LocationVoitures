@@ -79,10 +79,10 @@
                           class="custom-select"
                           id="inputGroupSelect01"
                           name="idClient"
-                          th:each="client : ${clients}"
                         >
                           <option selected value="">Choisie un client:</option>
                           <option
+                            th:each="client : ${clients}"
                             th:value="${client.idClient}"
                             th:text="${client.nom} +' '+${client.prenom} "
                           ></option>
@@ -159,7 +159,7 @@
                           aria-describedby="montant_garantie"
                         />
                       </div>
-                      <div class="mb-3">
+                      <!-- <div class="mb-3">
                         <label class="form-label">Frais de location: </label>
                         <input
                           type="number"
@@ -167,7 +167,7 @@
                           name="fraisLocation"
                           aria-describedby="frais_location"
                         />
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>

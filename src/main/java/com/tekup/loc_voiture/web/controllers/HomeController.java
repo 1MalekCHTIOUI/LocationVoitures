@@ -91,7 +91,7 @@ public class HomeController {
 					&& op.getOperationFinished() == false) {
 				Voiture v = voitureService.getVoitureById(op.getIdVoiture()).orElse(null);
 				Client c = clientService.getClientById(op.getIdClient()).orElse(null);
-				dataMap.put(v.getModele() + " " + v.getMarque(), c.getNom() + " " + c.getPrenom());
+				dataMap.put(v.getMarque() + " " + v.getModele(), c.getNom() + " " + c.getPrenom());
 			}
 		}
 		return dataMap;

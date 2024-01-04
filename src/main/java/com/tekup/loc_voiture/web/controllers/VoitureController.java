@@ -16,8 +16,11 @@ import com.tekup.loc_voiture.dao.entities.Voiture;
 import com.tekup.loc_voiture.dao.entities.requests.VoitureForm;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping
@@ -27,12 +30,38 @@ public class VoitureController {
     private VoitureServiceImpl voitureService;
 
     @GetMapping({ "/", "/home" })
-    // @RequestMapping({"/","/voitures"})
-    public String getVoitures(Model model) {
+    public String getLimitedVoitures(Model model) {
+        List<Voiture> voitures = voitureService.getVoitures();
+        List<Voiture> selectedVoitures = voitures.stream().limit(6).collect(Collectors.toList());
+        model.addAttribute("voitures", selectedVoitures);
+        return "index";
+    }
+
+    @GetMapping("/voitures")
+    public String getAllVoitures(Model model, @RequestParam(name = "minPrice", required = false) Double minPrice,
+            @RequestParam(name = "maxPrice", required = false) Double maxPrice,
+            @RequestParam(name = "marque", required = false) String marque) {
         List<Voiture> voitures = voitureService.getVoitures();
 
+        Set<String> voituresNoOcc = new HashSet<>();
+
+        if (minPrice != null || maxPrice != null || marque != null) {
+            System.out.println("minPrice: " + minPrice + " maxPrice: " + maxPrice + " marque: " + marque);
+            voitures = voitureService.getFilteredVoitures(voitures, minPrice, maxPrice, marque);
+        } else {
+            voitures = voitureService.getVoitures();
+        }
+
         model.addAttribute("voitures", voitures);
-        return "index";
+
+        for (Voiture voiture : voitureService.getVoitures()) {
+            String marqueV = voiture.getMarque();
+            if (!voituresNoOcc.contains(marqueV)) {
+                voituresNoOcc.add(marqueV);
+            }
+        }
+        model.addAttribute("voituresNoOcc", voituresNoOcc);
+        return "listeVoitureClient";
     }
 
     @GetMapping("/voitures/{immatVehicle}")
@@ -117,6 +146,22 @@ public class VoitureController {
 
         return "redirect:/dashboard/voitures?refresh=true";
 
+    }
+
+    @GetMapping("/dashboard/voitures/dispo")
+    public String getVoituresDispo(Model model, @RequestParam(name = "date", required = false) String date,
+            @RequestParam(name = "voiture", required = false) String voiture) {
+
+        List<Voiture> voitures = voitureService.getVoitures();
+        if (date != null || voiture != null) {
+            voitures = voitureService.getVoituresDispoByDate(date, voiture);
+        } else {
+            voitures = voitureService.getVoitures();
+        }
+        model.addAttribute("voituresDispo", voitures);
+        model.addAttribute("voitures", voitureService.getVoitures());
+
+        return "listeVoituresParDate";
     }
 
 }

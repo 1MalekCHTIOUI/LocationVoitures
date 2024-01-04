@@ -36,6 +36,7 @@ public class OperationLocation {
         this.montantGarantie = montantGarantie;
         this.idClient = idClient;
         this.idVoiture = idVoiture;
+        this.operationFinished = operationFinished;
     }
 
     public boolean getOperationFinished() {

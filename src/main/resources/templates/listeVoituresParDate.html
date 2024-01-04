@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Edit Operation</title>
+
+    <!-- Custom fonts for this template-->
+    <link
+      href="/dashboard/vendor/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+
+    <link href="/dashboard/css/sb-admin-2.min.css" rel="stylesheet" />
+  </head>
+
+  <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <div th:insert="~{/fragments/nav :: nav}"></div>
+
+      <!-- End of Sidebar -->
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Topbar -->
+          <div th:insert="~{/fragments/TopBarDash :: topbar}"></div>
+
+          <!-- End of Topbar -->
+
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <!-- Page Heading -->
+            <div
+              class="d-sm-flex align-items-center justify-content-between mb-4"
+            >
+              <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+              <a
+                class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                ><i class="fas fa-download fa-sm text-white-50"></i> Generate
+                Report</a
+              >
+            </div>
+
+            <!-- Content Row -->
+            <div class="container-fluid mb-4">
+              <div class="bg-light d-flex align-items-center">
+                <div class="container px-5">
+                  <div class="row gx-5 justify-content-center">
+                    <div class="container">
+                      <!-- filter -->
+                      <div class="mt-4">
+                        <form
+                          th:action="@{/dashboard/voitures/dispo}"
+                          method="get"
+                        >
+                          <div
+                            class="form-row align-items-center justify-content-start"
+                          >
+                            <div class="col-sm-3 my-1">
+                              <input
+                                type="date"
+                                class="form-control"
+                                id="date"
+                                name="date"
+                              />
+                            </div>
+                            <div class="col-sm-3 my-1">
+                              <i class="bi bi-filter me-1"></i>
+                              <select
+                                class="custom-select"
+                                id="inputGroupSelect038"
+                                name="voiture"
+                              >
+                                <option selected value="">voiture:</option>
+                                <option
+                                  th:each="v : ${voitures}"
+                                  th:value="${v.marque +' '+v.modele }"
+                                  th:text="${v.marque +' '+v.modele} "
+                                ></option>
+                              </select>
+                            </div>
+                            <div class="col-auto my-1">
+                              <button type="submit" class="btn btn-success">
+                                filter
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                        <!-- <form
+                          th:action="@{/dashboard/voitures/dispo}"
+                          method="get"
+                        >
+                          <div class="form-group">
+                            <input
+                              type="date"
+                              class="form-control"
+                              id="date"
+                              name="date"
+                            />
+                          </div>
+                          <button type="submit" class="btn btn-primary">
+                            filter
+                          </button>
+                        </form> -->
+                      </div>
+                    </div>
+                    <div class="col-lg text-center">
+                      <div
+                        class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center align-items-center"
+                      >
+                        <div
+                          class="col"
+                          th:each="voiture,state : ${voituresDispo}"
+                        >
+                          <div
+                            style="cursor: pointer; margin: 1rem"
+                            class="card mb-5 align-items-center cursor"
+                          >
+                            <a
+                              th:href="@{'/dashboard/voitures/dispo/' + ${voiture.immatVoiture}}"
+                              style="text-decoration: none; width: 100%; color: inherit"
+                            >
+                              <div class="container">
+                                <img
+                                  class="mt-3"
+                                  style="width: 100%; height: 180px; object-fit: cover"
+                                  th:src="${voiture.photo ne ''} ? @{|/assets/images/${voiture.photo}|} : @{/assets/images/car.png}"
+                                  alt="Vehicle Image"
+                                />
+                              </div>
+
+                              <div class="card-body">
+                                <h5
+                                  class="card-title"
+                                  th:text="|${voiture.marque} ${voiture.modele}|"
+                                ></h5>
+                                <p>
+                                  <b
+                                    th:text="${voiture.prixLocation} + ' DT'"
+                                  ></b>
+                                  <span th:text="' / Jour'"></span>
+                                </p>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Content Row -->
+
+            <!-- Content Row -->
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>&copy; All Rights Reserved.</span>
+            </div>
+          </div>
+        </footer>
+        <!-- End of Footer -->
+      </div>
+      <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Load jQuery first -->
+    <script th:src="@{/dashboard/vendor/jquery/jquery.min.js}"></script>
+
+    <!-- Load jQuery Easing after jQuery -->
+    <script
+      th:src="@{/dashboard/vendor/jquery-easing/jquery.easing.min.js}"
+    ></script>
+
+    <!-- Load Bootstrap JavaScript (includes Popper.js) after jQuery and jQuery Easing -->
+    <script
+      th:src="@{/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js}"
+    ></script>
+
+    <!-- Load your custom JavaScript file (sb-admin-2) last -->
+    <script th:src="@{/dashboard/js/sb-admin-2.min.js}"></script>
+  </body>
+</html>

@@ -86,7 +86,7 @@
                           <option
                             th:each="client : ${clients}"
                             th:value="${client.idClient}"
-                            th:text="${client.nom}"
+                            th:text="${client.nom}+ ' '+${client.prenom}"
                             th:selected="${client.idClient == operationForm.idClient}"
                           ></option>
                         </select>
